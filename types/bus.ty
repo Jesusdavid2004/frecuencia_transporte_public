@@ -1,0 +1,20 @@
+export interface BusPosition {
+  bus: number;
+  ruta: string;
+  lat: number;
+  lon: number;
+  vel: number;
+  rumbo: number;
+  ts: number;
+  hdop: number;
+  sats: number;
+}
+
+export interface BusState {
+  id: number;
+  ruta: string;
+  position: number;
+  lastUpdate: number;
+  estimated: boolean;
+}
+
