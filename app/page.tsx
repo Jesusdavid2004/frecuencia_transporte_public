@@ -1,42 +1,42 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { detectBunching } from "@/lib/bunching";
 
 export default function Home() {
   const [buses, setBuses] = useState<any[]>([]);
+  const [alertas, setAlertas] = useState<any[]>([]);
 
   useEffect(() => {
-    const worker = new Worker(
-      new URL("../workers/processor.worker.ts", import.meta.url),
-      { type: "module" }
-    );
+    // simulación simple (NO worker)
+    const data = [
+      { id: 1, ruta: "R01", position: 100 },
+      { id: 2, ruta: "R01", position: 120 }, 
+      { id: 3, ruta: "R01", position: 400 },
+    ];
 
-    worker.onmessage = (e) => {
-      setBuses(e.data);
-    };
+    setBuses(data);
 
-    const interval = setInterval(() => {
-      worker.postMessage([
-        {
-          bus: 1,
-          ruta: "R01",
-          lat: 1.213,
-          lon: -77.28,
-        },
-      ]);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-      worker.terminate();
-    };
+    const resultado = detectBunching(data, 100);
+    setAlertas(resultado);
   }, []);
 
   return (
     <div style={{ padding: 20 }}>
       <h1>Control de Transporte</h1>
+
+      <h2>Buses:</h2>
       {buses.map((b, i) => (
-        <div key={i}>Bus {b.bus} - activo</div>
+        <div key={i}>
+          Bus {b.id} - posición {b.position}
+        </div>
+      ))}
+
+      <h2>Alertas:</h2>
+      {alertas.map((a, i) => (
+        <div key={i}>
+          {a.tipo} en bus {a.bus}
+        </div>
       ))}
     </div>
   );
