@@ -1,9 +1,7 @@
-import { BusState } from "../types/bus";
-
-export function detectBunching(buses: BusState[], frecuencia: number) {
+export function detectBunching(buses: any[], frecuencia: number) {
   const ordenados = [...buses].sort((a, b) => a.position - b.position);
 
-  const alertas: { tipo: string; bus: number }[] = [];
+  const alertas: any[] = [];
 
   for (let i = 1; i < ordenados.length; i++) {
     const gap = ordenados[i].position - ordenados[i - 1].position;

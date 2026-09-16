@@ -1,5 +1,0 @@
-export interface BusState {
-  id: number;
-  ruta: string;
-  position: number;
-}

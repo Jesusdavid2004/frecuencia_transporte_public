@@ -10,8 +10,8 @@ export default function Home() {
   useEffect(() => {
     const data = [
       { id: 1, ruta: "R01", position: 100 },
-      { id: 2, ruta: "R01", position: 120 }, // bunching
-      { id: 3, ruta: "R01", position: 400 }, // hueco
+      { id: 2, ruta: "R01", position: 120 },
+      { id: 3, ruta: "R01", position: 400 },
     ];
 
     setBuses(data);
