@@ -17,4 +17,3 @@ export interface BusState {
   lastUpdate: number;
   estimated: boolean;
 }
-

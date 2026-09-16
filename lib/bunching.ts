@@ -1,4 +1,4 @@
-import { BusState } from "../types/bus";
+import { BusState } from "@/types/bus";
 
 export function detectBunching(buses: BusState[], frecuencia: number) {
   const ordenados = [...buses].sort((a, b) => a.position - b.position);
