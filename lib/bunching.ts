@@ -1,19 +1,34 @@
-export function detectBunching(buses: any[], frecuencia: number) {
+export function detectarBunching(buses: any[], frecuencia: number) {
   const ordenados = [...buses].sort((a, b) => a.position - b.position);
 
-  const alertas: any[] = [];
+  const resultado: {
+    tipo: string;
+    bus: number;
+    diferencia: number;
+  }[] = [];
 
   for (let i = 1; i < ordenados.length; i++) {
-    const gap = ordenados[i].position - ordenados[i - 1].position;
+    const actual = ordenados[i];
+    const anterior = ordenados[i - 1];
 
-    if (gap < frecuencia * 0.4) {
-      alertas.push({ tipo: "bunching", bus: ordenados[i].id });
+    const diferencia = actual.position - anterior.position;
+
+    if (diferencia < frecuencia * 0.4) {
+      resultado.push({
+        tipo: "BUNCHING",
+        bus: actual.id,
+        diferencia,
+      });
     }
 
-    if (gap > frecuencia * 1.6) {
-      alertas.push({ tipo: "hueco", bus: ordenados[i].id });
+    if (diferencia > frecuencia * 1.6) {
+      resultado.push({
+        tipo: "HUECO",
+        bus: actual.id,
+        diferencia,
+      });
     }
   }
 
-  return alertas;
+  return resultado;
 }
