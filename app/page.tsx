@@ -7,7 +7,8 @@ export default function Home() {
 
   useEffect(() => {
     const worker = new Worker(
-      new URL("../workers/processor.worker.ts", import.meta.url)
+      new URL("../workers/processor.worker.ts", import.meta.url),
+      { type: "module" }
     );
 
     worker.onmessage = (e) => {
@@ -34,11 +35,8 @@ export default function Home() {
   return (
     <div style={{ padding: 20 }}>
       <h1>Control de Transporte</h1>
-
       {buses.map((b, i) => (
-        <div key={i}>
-          Bus {b.bus} - activo
-        </div>
+        <div key={i}>Bus {b.bus} - activo</div>
       ))}
     </div>
   );
